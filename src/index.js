@@ -1,7 +1,8 @@
 // IMPORT FILES
 import $ from 'jquery';
 import './css/base.scss';
-import './images/old-gerard.jpg'
+import './images/gerard-logo.png'
+import './images/key.png'
 import Hotel from './classes/Hotel'
 import User from './classes/User'
 import Room from './classes/Room'
