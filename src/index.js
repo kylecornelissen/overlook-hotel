@@ -1,26 +1,30 @@
 // IMPORT FILES
 import $ from 'jquery';
 import './css/base.scss';
-import './images/old-gerard.jpg'
-import Hotel from './classes/Hotel'
-import User from './classes/User'
-import Room from './classes/Room'
-import Booking from './classes/Booking'
+import './images/gerard-logo.png';
+import './images/key.png';
+import domUpdates from './domUpdates';
+import Hotel from './classes/Hotel';
+import User from './classes/User';
+import Room from './classes/Room';
+import Booking from './classes/Booking';
+
+let page = $(document);
 
 let hotel;
 let users = [];
 let rooms = [];
 let bookings = [];
+let username;
 
-$(document).ready(createHotel);
-$('.login-btn').click(getLoginInfo);
+page.ready(findPage);
+$('.login-btn').click(verifyLogin);
+// $('.logout-btn').click(verifyLoginInfo); //redirect to login page and clear storage
 
-function createHotel() {
-  fetchUsers();
-  fetchRooms();
-  fetchBookings();
-  hotel = new Hotel('Gerard Hotel', users, rooms);
-  console.log(hotel, bookings);
+function findPage() {
+  if (page[0].title === 'Gerard Hotel') {fetchUsers()};
+  if (page[0].title === 'Guest Page') {  domUpdates.insertGuestName() };
+  // if (page[0].title === 'Manager Page') {console.log('manager')};
 }
 
 const fetchUsers = () => {
@@ -57,6 +61,26 @@ const createBookings = (bookingData) => {
                                                booking.roomServiceCharges)));
 }
 
-function getLoginInfo() {
-
+function verifyLogin() {
+  event.preventDefault();
+  username = $('.user-name-input').val();
+  let password = $('.password-input').val();
+  if (username.substr(0,5) !== 'guest' && username !== 'manager') {
+    domUpdates.insertLoginError();
+    return
+  } else if (username === 'manager') {
+    verifyPassword(password) ? loadManager(username) : domUpdates.insertPasswordError();
+  } else {
+    let guest = users.find(u => u.id === parseInt(username.substr(5,username.length-5)));
+    (!guest) ? domUpdates.insertLoginError() : (verifyPassword(password) ? loadGuest(guest) : domUpdates.insertPasswordError());
+  }
 };
+
+function verifyPassword(password) {
+  return password === 'overlook2019';
+}
+
+function loadGuest(guest) {
+  window.localStorage.setItem('guest', JSON.stringify(guest));
+  window.location.href = "guest-dashboard.html";
+}
