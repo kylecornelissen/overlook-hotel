@@ -7,14 +7,17 @@ const domUpdates = {
   insertPasswordError() {
     $('#error-msg').empty().append('Password is Incorrect.');
   },
-  insertGuestName() {
-    console.log('hello');
-    let name = JSON.parse(window.localStorage.getItem('guest')).name;
-    $('#welcome-heading').append(`Hello ${name.split(' ')[0]}...`);
+  insertGuestName(user) {
+    let name = user.name.split(' ')[0];
+    $('#welcome-heading').append(`Hello ${name}...`);
+  },
+  addBookings(user, bookings) {
+    user.findBookings(bookings).forEach(b => {;
+      $('#booking-list').append(
+        `<li>Room ${b.roomNum} on ${b.date}</li>`
+      )
+    });
   }
-  // addBookings(user) {
-  //   console.log(user);
-  // }
 }
 
 export default domUpdates;
