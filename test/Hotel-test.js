@@ -19,8 +19,9 @@ describe('Hotel', function() {
   it('should initialize with name', () => {
     expect(hotel.name).to.be.equal('test hotel');
   });
+  
   it('should initialize with an array of users and rooms', () => {
-    expect(hotel.users).to.be.equal(['user1','user2']);
-    expect(hotel.rooms).to.be.equal(['room1','room2']);
+    expect(hotel.users).to.deep.equal(['user1','user2']);
+    expect(hotel.rooms).to.deep.equal(['room1','room2']);
   });
 });
