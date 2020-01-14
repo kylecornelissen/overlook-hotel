@@ -19,11 +19,11 @@ let username;
 
 page.ready(findPage);
 $('.login-btn').click(verifyLogin);
-// $('.logout-btn').click(verifyLoginInfo); //redirect to login page and clear storage
+$('.logout-btn').click(logoutGuest);
 
 function findPage() {
-  if (page[0].title === 'Gerard Hotel') {fetchUsers()};
-  if (page[0].title === 'Guest Page') {  domUpdates.insertGuestName() };
+  if (page[0].title === 'Gerard Hotel') fetchUsers();
+  if (page[0].title === 'Guest Page') setupGuestDashboard();
   // if (page[0].title === 'Manager Page') {console.log('manager')};
 }
 
@@ -69,10 +69,11 @@ function verifyLogin() {
     domUpdates.insertLoginError();
     return
   } else if (username === 'manager') {
-    verifyPassword(password) ? loadManager(username) : domUpdates.insertPasswordError();
+    let manager = new Manager(); // future implementation might need to change this else if block
+    manager.verifyPassword(password) ? loadManager(username) : domUpdates.insertPasswordError();
   } else {
-    let guest = users.find(u => u.id === parseInt(username.substr(5,username.length-5)));
-    (!guest) ? domUpdates.insertLoginError() : (verifyPassword(password) ? loadGuest(guest) : domUpdates.insertPasswordError());
+    let guest = users.find(user => user.id === parseInt(username.substr(5,username.length-5)));
+    (!guest) ? domUpdates.insertLoginError() : (guest.verifyPassword(password) ? loadGuest(guest) : domUpdates.insertPasswordError());
   }
 };
 
@@ -83,4 +84,19 @@ function verifyPassword(password) {
 function loadGuest(guest) {
   window.localStorage.setItem('guest', JSON.stringify(guest));
   window.location.href = "guest-dashboard.html";
+}
+
+function logoutGuest() {
+  window.localStorage.clear();
+  window.location.href = "index.html";
+}
+
+function setupGuestDashboard() {
+  let user = JSON.parse(window.localStorage.getItem('guest'));
+  let currentUser = new User(user.id, user.name);
+  fetchBookings();
+  fetchRooms();
+  domUpdates.insertGuestName(currentUser);
+  setTimeout(() => domUpdates.addBookings(currentUser, bookings), 1000);
+  setTimeout(() => domUpdates.addMoneySpent(currentUser, rooms), 1000);
 }
