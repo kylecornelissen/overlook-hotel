@@ -5,9 +5,11 @@ import Booking from '../src/classes/Booking';
 
 describe('Booking', function() {
   let booking;
+  let rooms;
 
   beforeEach(() => {
-    booking = new Booking('5fwr', 18, '2020/01/04', 12, []);
+    rooms = [{num: 12, cost: 10}, {num: 33, cost: 1000}, {num: 42, cost: 333}];
+    booking = new Booking('5fwr', 18, '2020/01/04', 12, [4, 8, 12]);
   });
 
   it('should be a class of Booking', () => {
@@ -30,7 +32,17 @@ describe('Booking', function() {
     expect(booking.roomNum).to.be.equal(12);
   });
 
-  it('should initialize with empty array of room service charges', () => {
-    expect(booking.roomServiceCharges).to.deep.equal([]);
+  it('should initialize with array of room service charges', () => {
+    expect(booking.roomServiceCharges).to.deep.equal([4,8,12]);
+  });
+
+  it('should have a method that finds total cost of room service charges', () => {
+    expect(booking.findTotalRoomServiceCost()).to.be.equal(24);
+    booking.roomServiceCharges = [];
+    expect(booking.findTotalRoomServiceCost()).to.be.equal(0);
+  });
+
+  it('should have a method that finds total cost of room and room service charges', () => {
+    expect(booking.findTotalRoomCost(rooms)).to.be.equal(34);
   });
 });
