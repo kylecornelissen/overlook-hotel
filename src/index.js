@@ -19,7 +19,7 @@ let username;
 
 page.ready(findPage);
 $('.login-btn').click(verifyLogin);
-// $('.logout-btn').click(verifyLoginInfo); //redirect to login page and clear storage
+$('.logout-btn').click(logoutGuest);
 
 function findPage() {
   if (page[0].title === 'Gerard Hotel') fetchUsers();
@@ -86,11 +86,17 @@ function loadGuest(guest) {
   window.location.href = "guest-dashboard.html";
 }
 
+function logoutGuest() {
+  window.localStorage.clear();
+  window.location.href = "index.html";
+}
+
 function setupGuestDashboard() {
   let user = JSON.parse(window.localStorage.getItem('guest'));
   let currentUser = new User(user.id, user.name);
   fetchBookings();
+  fetchRooms();
   domUpdates.insertGuestName(currentUser);
-  domUpdates.addBookings(currentUser, bookings);
-  setTimeout(() => domUpdates.addBookings(currentUser, bookings), 100);
+  setTimeout(() => domUpdates.addBookings(currentUser, bookings), 1000);
+  setTimeout(() => domUpdates.addMoneySpent(currentUser, rooms), 1000);
 }
