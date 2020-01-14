@@ -7,11 +7,14 @@ class Booking {
     this.roomServiceCharges = roomServiceCharges;
   }
   findTotalRoomServiceCost() {
-    if (this.roomServiceCharges === []) return 0
-    return this.roomServiceCharges.reduce((acc,charge) => {
-      acc += charge;
-      return acc
-    }, 0)
+    if (this.roomServiceCharges === [] || this.roomServiceCharege === undefined) {
+      return 0
+    } else {
+      return this.roomServiceCharges.reduce((acc,charge) => {
+        acc += charge;
+        return acc
+      }, 0)
+    };
   }
   findTotalRoomCost(rooms) {
     return rooms.find(r => {
