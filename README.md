@@ -1,4 +1,4 @@
-# Webpack Starter Kit
+# The Gerard Hotel
 
 ## Clone This Repo
 
