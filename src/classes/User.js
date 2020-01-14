@@ -3,12 +3,14 @@ class User {
     this.id = id;
     this.name = name;
     this.password = 'overlook2019';
+    this.bookings;
   }
   verifyPassword(password) {
     return password === this.password;
   }
   findBookings(bookings) {
-    return bookings.filter(b => b.userID === this.id);
+    this.bookings = bookings.filter(b => b.userID === this.id);
+    return this.bookings
   }
 }
 
