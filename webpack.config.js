@@ -43,6 +43,11 @@ module.exports = {
       filename: 'guest-dashboard.html',
       template: './src/guest-dashboard.html',
       chunks: ['app']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'manager-dashboard.html',
+      template: './src/manager-dashboard.html',
+      chunks: ['app']
     })
   ],
   devServer: {

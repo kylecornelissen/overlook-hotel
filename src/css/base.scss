@@ -106,7 +106,6 @@ body {
     font-family: $logo-font;
     font-size: 60px;
     margin: 15px 7px 7px;
-    padding-left: 40px;
   }
   button {
     background: $silver-opaque;
@@ -116,17 +115,16 @@ body {
     font-family: $main-font;
     font-size: 20px;
     margin: 2%;
-    padding: 1%;
+    padding: 10px;
   }
   button:hover {
     background: $silver;
-    border: 2px solid $white;
     color: $white;
-    transition: .2s ease;
+    transition: 1s ease;
   }
 }
 
-.guest-info {
+.user-info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
