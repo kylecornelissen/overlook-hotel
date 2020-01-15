@@ -11,15 +11,23 @@ import Booking from './classes/Booking';
 
 let page = $(document);
 
-let hotel;
-let users = [];
-let rooms = [];
 let bookings = [];
+let hotel;
+let rooms = [];
 let username;
+let users = [];
 
 page.ready(findPage);
 $('.login-btn').click(verifyLogin);
 $('.logout-btn').click(logoutUser);
+$('.book-btn').click(domUpdates.addDateInput);
+$('.choose-date-btn').click(requestDate);
+$('.filter-room-btn').click(requestRoomType);
+$('.cancel-btn').click(domUpdates.cancelForm);
+
+function tempFunction() {
+  console.log('waddup');
+}
 
 function findPage() {
   if (page[0].title === 'Gerard Hotel') fetchUsers();
@@ -69,6 +77,19 @@ const createBookings = (bookingData) => {
                                                booking.roomServiceCharges)));
 }
 
+// const createBooking = (postData) => {
+//   fetch(url, {
+//   	method: 'POST',
+//   	headers: {
+//   		'Content-Type': 'application/json'
+//   	},
+//   	body: JSON.stringify(someDataToSend), // remember how HTTP can only send and receive strings, just like localStorage?
+//   })
+//   	.then(response => response.json())
+//   	.then(json => /*do something with json*/)
+//   	.catch(err => /*do something with the error*/);
+// }
+
 function verifyLogin() {
   username = $('.user-name-input').val();
   let password = $('.password-input').val();
@@ -104,8 +125,8 @@ function setupGuestDashboard() {
   fetchBookings();
   fetchRooms();
   domUpdates.insertGuestName(currentUser);
-  setTimeout(() => domUpdates.addBookings(currentUser, bookings), 1000);
-  setTimeout(() => domUpdates.addMoneySpent(currentUser, rooms), 1000);
+  setTimeout(() => domUpdates.insertBookingHistory(currentUser, bookings), 1000);
+  setTimeout(() => domUpdates.insertMoneySpent(currentUser, rooms), 1000);
 }
 
 function setupManagerDashboard() {
@@ -114,7 +135,24 @@ function setupManagerDashboard() {
   fetchBookings();
   fetchRooms();
   domUpdates.insertGuestName(currentUser);
-  setTimeout(() => domUpdates.addAvailableRooms(bookings, today()), 1000);
-  setTimeout(() => domUpdates.addTotalRevenueToday(bookings, rooms, today()), 1000);
-  setTimeout(() => domUpdates.addOccupiedRoomsPercent(bookings, today()), 1000);
+  setTimeout(() => domUpdates.insertAvailableRoomCount(bookings, today()), 1000);
+  setTimeout(() => domUpdates.insertTotalRevenueToday(bookings, rooms, today()), 1000);
+  setTimeout(() => domUpdates.insertOccupiedRoomsPercent(bookings, today()), 1000);
+}
+
+function requestDate() {
+  global.selectedDate = $('.date-input').val().split('-').join('/');
+  (selectedDate.length === 10) ? domUpdates.filterByDate(bookings, rooms, global.selectedDate) : domUpdates.insertDateError();
+}
+
+function requestRoomType() {
+  let roomType = $('input[name="room-filter"]:checked').val();
+  roomType ? domUpdates.filterByRoomType(bookings, rooms, global.selectedDate, roomType) : domUpdates.insertFilterError();
+}
+
+function bookRoom() {
+  // let user = JSON.parse(window.localStorage.getItem('guest'));
+  // let currentUser = new User(user.id, user.name);
+  // let postData = {"userID": user.id, "date": date, "roomNumber": roomNum};
+  // console.log(currentUser)
 }
