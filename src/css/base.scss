@@ -242,7 +242,7 @@ body {
     margin-top: 5%;
     padding: 0;
     .guest-list li {
-      border: 2px solid $silver-opaque;
+      border: 1px ridge $silver-opaque;
       border-top: none;
       border-bottom: none;
       cursor: pointer;
@@ -250,7 +250,7 @@ body {
       padding: 0;
       margin-bottom: 3%;
       p {
-        padding-left: 2%;
+        padding: 2%;
       }
       h3 {
         background: $silver;
@@ -265,6 +265,7 @@ body {
       border-radius: 0px;
       width: 100%;
       margin: 0;
+      padding: 4% 0%;
     }
   }
   ul {

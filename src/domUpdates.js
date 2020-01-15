@@ -99,10 +99,11 @@ const domUpdates = {
             Beds: ${r.numBeds}<br>
             Size: ${r.bedSize.toUpperCase()}<br>
             Bidet? ${(r.bidet ? 'YES' : 'NO')}</p>
-            <button id="${r.num}" class="book-form-btn">Book Room #${r.num}</button>
+            <button id="${r.num}" class="book-form-btn book-this-room-btn" type="button" name="button">Book Room #${r.num}</button>
           </li>`
         );
       });
+      global.bookItBtn = $('.book-this-room-btn');
     } else {
       $('.book-form').css({'display': 'none'});
       $('#welcome-heading').after(

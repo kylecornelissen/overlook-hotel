@@ -14,6 +14,7 @@ let page = $(document);
 let bookings = [];
 let hotel;
 let rooms = [];
+let selectedDate;
 let username;
 let users = [];
 
@@ -77,18 +78,18 @@ const createBookings = (bookingData) => {
                                                booking.roomServiceCharges)));
 }
 
-// const createBooking = (postData) => {
-//   fetch(url, {
-//   	method: 'POST',
-//   	headers: {
-//   		'Content-Type': 'application/json'
-//   	},
-//   	body: JSON.stringify(someDataToSend), // remember how HTTP can only send and receive strings, just like localStorage?
-//   })
-//   	.then(response => response.json())
-//   	.then(json => /*do something with json*/)
-//   	.catch(err => /*do something with the error*/);
-// }
+const bookThatRoom = (postData) => {
+  fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings", {
+  	method: 'POST',
+  	headers: {
+  		'Content-Type': 'application/json'
+  	},
+  	body: JSON.stringify(postData),
+  })
+  	.then(response => response.json())
+  	.then(json => console.log(json))
+  	.catch(err => console.log(err));
+}
 
 function verifyLogin() {
   username = $('.user-name-input').val();
@@ -141,18 +142,21 @@ function setupManagerDashboard() {
 }
 
 function requestDate() {
-  global.selectedDate = $('.date-input').val().split('-').join('/');
-  (selectedDate.length === 10) ? domUpdates.filterByDate(bookings, rooms, global.selectedDate) : domUpdates.insertDateError();
+  selectedDate = $('.date-input').val().split('-').join('/');
+  (selectedDate.length === 10) ? domUpdates.filterByDate(bookings, rooms, selectedDate) : domUpdates.insertDateError();
+  global.bookItBtn.click(bookRoom);
 }
 
 function requestRoomType() {
   let roomType = $('input[name="room-filter"]:checked').val();
-  roomType ? domUpdates.filterByRoomType(bookings, rooms, global.selectedDate, roomType) : domUpdates.insertFilterError();
+  roomType ? domUpdates.filterByRoomType(bookings, rooms, selectedDate, roomType) : domUpdates.insertFilterError();
+  global.bookItBtn.click(bookRoom);
 }
 
 function bookRoom() {
-  // let user = JSON.parse(window.localStorage.getItem('guest'));
-  // let currentUser = new User(user.id, user.name);
-  // let postData = {"userID": user.id, "date": date, "roomNumber": roomNum};
-  // console.log(currentUser)
+  let user = JSON.parse(window.localStorage.getItem('guest'));
+  let currentUser = new User(user.id, user.name);
+  let postData = {"userID": currentUser.id, "date": selectedDate, "roomNumber": parseInt(event.target.id)};
+  bookThatRoom(postData);
+  domUpdates.cancelForm();
 }
