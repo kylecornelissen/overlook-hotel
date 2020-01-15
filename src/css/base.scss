@@ -7,6 +7,7 @@ $silver: rgb(106,145,158);
 $silver-opaque: rgba(106,145,158,0.3);
 $logo-font: 'Great Vibes', cursive;
 $main-font: 'Raleway', sans-serif;
+$dashboard-font: 'Inconsolata', monospace;
 $key-cursor: url('../images/key.png'), default !important;
 
 @mixin flex-center {
@@ -20,6 +21,7 @@ $key-cursor: url('../images/key.png'), default !important;
 }
 
 body {
+  background: $silver-opaque;
   font-family: $main-font;
   margin: 0;
   text-align: center;
@@ -28,16 +30,17 @@ body {
 // ------------ LOGIN PAGE ------------ //
 #login-page {
   background-color: $white;
-  margin: 10% 30%;
-  padding: 1%;
+  border: 2px solid $silver;
+  margin: 5% 30%;
+  padding: 3% 3%;
 }
 
 #login-page h1 {
   cursor: default;
   font-family: $logo-font;
-  font-size: 5.5vw;
+  font-size: 5.0vw;
   margin: 0;
-  margin-bottom: 15px;
+  margin-bottom: 15%;
   padding-top: 2%;
 }
 
@@ -46,17 +49,20 @@ body {
 }
 
 .login-input {
+  align-self: center;
   border: none;
   border-bottom: 2px solid $black;
   font-family: $main-font;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 300;
   outline: 0;
   padding-top: 5%;
+  padding-bottom: 2%;
+  width: 90%;
 }
 
 .login-input::placeholder {
-  color: $gray;
+  color: $silver-opaque;
   font-weight: 100;
 }
 
@@ -65,10 +71,11 @@ body {
   transition: .8s ease;
 }
 
-#error-msg {
+.error-msg {
   color: $white;
   cursor: default;
-  text-align: left;
+  font-size: 20px;
+  text-align: center;
   padding-top: 2%;
 }
 
@@ -79,22 +86,28 @@ body {
   cursor: $key-cursor;
   font-family: $main-font;
   font-size: 20px;
-  margin-top: 5%;
+  margin-top: 15%;
   padding: 2%;
+}
+
+.login-btn:hover {
+  background-color: $silver;
+  transition: .5s ease;
 }
 
 // ------------ GUEST PAGE ------------ //
 
 .dashboard-header {
-  background: rgb(0,0,0);
   background: $silver-gradient;
-  border-bottom: 2px solid $gray;
+  border-bottom: 2px solid $silver;
   box-shadow: 0px 0px 13px 5px black;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0%;
+  position: relative;
   width: 100%;
+  z-index: 500;
   .logo-img {
     margin: 7px 0px 7px 7px;
     width: 100px;
@@ -109,32 +122,163 @@ body {
   }
   button {
     background: $silver-opaque;
-    border: 2px solid $black;
-    border-radius: 5px;
+    border: 1px solid $silver-opaque;
+    border-radius: 3px;
     cursor: $key-cursor;
     font-family: $main-font;
     font-size: 20px;
     margin: 2%;
-    padding: 10px;
+    outline: 0;
+    padding: 1%;
   }
   button:hover {
     background: $silver;
     color: $white;
-    transition: 1s ease;
+    transition: .3s ease;
   }
 }
 
 .user-info {
+  align-self: center;
+  background: $white;
+  border: 2px solid $silver;
+  border-top: none;
+  box-shadow: 0px 0px 13px 3px black;
+  cursor: default;
   display: flex;
+  font-family: $dashboard-font;
   flex-direction: column;
   justify-content: flex-start;
-  text-align: left;
+  height: 87vh;
+  min-height: 87vh;
+  margin: 0% 20%;
   padding: 2%;
+  text-align: left;
+  width: 60%;
   h1 {
     color: $black;
     font-family: $logo-font;
     font-size: 50px;
     margin: 5px;
     text-shadow: 1px 2px 9px $silver;
+  }
+  h2 {
+    margin: 1%;
+  }
+  .book-form-btn {
+    background: $silver-opaque;
+    border: 1px solid $silver;
+    border-radius: 3px;
+    cursor: $key-cursor;
+    display: inline;
+    font-family: $main-font;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 1% 1% 1% 1%;
+    padding: 2% 0%;
+  }
+  .book-form-btn:hover {
+    background: $silver;
+    color: $white;
+    transition: .3s ease;
+  }
+  .book-form {
+    display: none;
+    flex-direction: column;
+    margin: 1% 20%;
+    .date-form {
+      display: flex;
+      flex-direction: column;
+      margin-right: 5%;
+      .date-input {
+        border: 1px solid $silver;
+        font-family: $main-font;
+        font-size: 20px;
+        outline: 0;
+      }
+    }
+
+    .selection-btns {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 2% 0%;
+    }
+
+    .selection-btn {
+      margin: 0;
+      margin-top: 2%;
+      width: 45%;
+    }
+
+    .radio-btns {
+      display: none;
+      flex-direction: column;
+      font-family: $main-font;
+      p {
+        margin-top: 0;
+        margin-left: 2%;
+      }
+      .room-radio-btn {
+
+        margin: 0% 0% 2% 2%;
+        flex-direction: row;
+      }
+      .room-type-btn {
+        cursor: pointer;
+      }
+    }
+  }
+  .form-direction {
+    color: $silver;
+    font-family: $main-font;
+    margin: 1% 0% 3%;
+    padding-left: 2px;
+  }
+  .open-rooms {
+    display: none;
+    flex-direction: column;
+    justify-content: left;
+    margin-top: 5%;
+    padding: 0;
+    .guest-list li {
+      border: 2px solid $silver-opaque;
+      border-top: none;
+      border-bottom: none;
+      cursor: pointer;
+      flex-direction: column;
+      padding: 0;
+      margin-bottom: 3%;
+      p {
+        padding-left: 2%;
+      }
+      h3 {
+        background: $silver;
+        color: $white;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 3%;
+        text-align: center;
+      }
+    }
+    button {
+      border-radius: 0px;
+      width: 100%;
+      margin: 0;
+    }
+  }
+  ul {
+    border-bottom: 5px solid $silver;
+    font-size: 20px;
+    padding: 0% 0% 1% 1%;
+    list-style: none;
+    margin: 0;
+  }
+  .apology-msg {
+    padding: 3%;
+  }
+  .go-back-btn {
+    display: none;
+    padding: 3%;
   }
 }
