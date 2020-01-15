@@ -1,7 +1,7 @@
 {
-  "name": "webpack-starter-kit",
+  "name": "the-gerard-hotel",
   "version": "1.0.0",
-  "description": "Project starter kit using webpack, mocha, chai, and SCSS/SASS enabled",
+  "description": "Project at Turing School of Software & Design",
   "main": "src/index.js",
   "scripts": {
     "predeploy": "npm run build",
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kylecornelissen/overlook-hotel.git",
-    "homepage": "https://kylecornelissen.github.io/overlook-hotel"
+    "homepage": "https://github.com/kylecornelissen/overlook-hotel"
   },
   "author": "Turing School of Software and Design",
   "license": "MIT",

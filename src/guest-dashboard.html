@@ -5,6 +5,7 @@
     <link rel="icon" type="image/png" href="./images/key.png">
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,200i,300,300i,400,400i,500,500i,600,600i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap" rel="stylesheet">
   </head>
   <body>
     <header class="dashboard-header">
@@ -14,11 +15,56 @@
     </header>
     <section class="user-info">
       <h1 id="welcome-heading"></h1>
-      <h2>Your Bookings</h2>
-      <ul id="booking-list">
-        <span>Loading...<span>
-      </ul>
-      <h2 id="total-spending"></h2>
+      <button class="book-btn book-form-btn" type="button" name="button">Book Another Room</button>
+      <form class="book-form">
+        <div class="date-form">
+          <h2 class="form-direction">Choose a Date:</h2>
+          <label for="date-input"></label>
+          <input class="date-input" type="date" autocomplete="off" placeholder="MM/DD/YYYY"></input>
+          <div class="date-error error-msg">.</div>
+          <div class="selection-btns">
+            <button class="cancel-btn book-form-btn selection-btn" type="button" name="button">Cancel</button>
+            <button class="choose-date-btn book-form-btn selection-btn" type="button" name="button">Continue</button>
+          </div>
+        </div>
+        <div class="radio-btns">
+          <h2 class="form-direction">Choose a Room Type:</h2>
+          <div class="room-radio-btn">
+            <input name="room-filter" class="room-type-btn" id="single-room" type="radio" value="single room">
+            <label for="single-room">Single Room</label>
+          </div>
+          <div class="room-radio-btn">
+            <input name="room-filter" class="room-type-btn" id="suite" type="radio" value="suite">
+            <label for="suite">Suite</label>
+          </div>
+          <div class="room-radio-btn">
+            <input name="room-filter" class="room-type-btn" id="junior-suite" type="radio" value="junior suite">
+            <label for="junior-suite">Junior Suite</label>
+          </div>
+          <div class="room-radio-btn">
+            <input name="room-filter" class="room-type-btn" id="residential-suite" type="radio" value="residential suite">
+            <label for="residential-suite">Residential Suite</label>
+          </div>
+          <div class="filter-error error-msg">.</div>
+          <div class="selection-btns">
+            <button class="cancel-btn book-form-btn selection-btn" type="button" name="button">Cancel</button>
+            <button class="filter-room-btn book-form-btn selection-btn" type="button" name="button">Continue</button>
+          </div>
+        </div>
+        <div class="open-rooms">
+          <h2 class="form-direction">Available Rooms</h2>
+          <ul class="guest-list open-rooms-list">
+          </ul>
+        </div>
+      </form>
+      <button class="cancel-btn book-form-btn selection-btn go-back-btn" type="button" name="button">Go Back</button>
+      <div class="stats">
+        <h2>Booking History: </h2>
+        <ul class="guest-list" id="booking-list">
+          <span>Loading...<span>
+        </ul>
+        <h2 id="total-spending"></h2>
+      </div>
     </section>
   </body>
 </html>
