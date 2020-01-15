@@ -25,10 +25,10 @@ $('.book-btn').click(domUpdates.addDateInput);
 $('.choose-date-btn').click(requestDate);
 $('.filter-room-btn').click(requestRoomType);
 $('.cancel-btn').click(domUpdates.cancelForm);
-
-function tempFunction() {
-  console.log('waddup');
-}
+$('.search-user-btn').click(searchUsers);
+$('.user-search-results').click(deleteBooking);
+$('.user-result').click(bookForUser);
+$('.room-input-container').click(bookForUserPartTwo);
 
 function findPage() {
   if (page[0].title === 'Gerard Hotel') fetchUsers();
@@ -159,4 +159,48 @@ function bookRoom() {
   let postData = {"userID": currentUser.id, "date": selectedDate, "roomNumber": parseInt(event.target.id)};
   bookThatRoom(postData);
   domUpdates.cancelForm();
+}
+
+function searchUsers() {
+  fetchUsers();
+  let searchInputVal = $('.user-name-input').val();
+  setTimeout(() => domUpdates.insertSearchResults(users, searchInputVal, bookings, rooms), 1000);
+}
+
+const deleteThatRoom = (deleteData) => {
+  fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings", {
+  	method: 'DELETE',
+  	headers: {
+  		'Content-Type': 'application/json'
+  	},
+  	body: JSON.stringify(deleteData),
+  })
+  	.then(response => response.json())
+  	.then(json => console.log(json))
+  	.catch(err => console.log(err));
+}
+
+function bookForUser() {
+  let userID = event.target.id;
+  domUpdates.bookTheirRoom(userID);
+}
+
+function bookForUserPartTwo() {
+  let userID = parseInt(event.target.id);
+  let date = $('.date-input').val().split('-').join('/');
+  let roomNum = parseInt($('.room-num-input').val());
+  if (today() <= date) {
+    bookThatRoom({"userID": userID, "date": date, "roomNumber": roomNum});
+  };
+}
+
+function deleteBooking() {
+  let info = event.target.id.split('-');
+  let date = info[1];
+  let id = info[0];
+  console.log(date, id);
+  if (today() <= date) {
+    let deleteData = {"id": id};
+    deleteThatRoom(deleteData);
+  }
 }

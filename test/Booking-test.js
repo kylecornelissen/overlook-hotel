@@ -36,13 +36,7 @@ describe('Booking', function() {
     expect(booking.roomServiceCharges).to.deep.equal([4,8,12]);
   });
 
-  it('should have a method that finds total cost of room service charges', () => {
-    expect(booking.findTotalRoomServiceCost()).to.be.equal(24);
-    booking.roomServiceCharges = [];
-    expect(booking.findTotalRoomServiceCost()).to.be.equal(0);
-  });
-
   it('should have a method that finds total cost of room and room service charges', () => {
-    expect(booking.findTotalRoomCost(rooms)).to.be.equal(34);
+    expect(booking.findTotalRoomCost(rooms)).to.be.equal(10);
   });
 });

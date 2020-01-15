@@ -1,4 +1,3 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
 $white: white;
 $black: black;
 $gray: rgb(150,150,150);
@@ -62,7 +61,7 @@ body {
 }
 
 .login-input::placeholder {
-  color: $silver-opaque;
+  color: $silver;
   font-weight: 100;
 }
 
@@ -281,5 +280,11 @@ body {
   .go-back-btn {
     display: none;
     padding: 3%;
+  }
+  .book-their-room {
+    display: none;
+  }
+  .room-input-container {
+    display: none;
   }
 }

@@ -122,6 +122,43 @@ const domUpdates = {
     $('.radio-btns').css({'display': 'none'});
     $('.open-rooms').css({'display': 'none'});
     $('.go-back-btn').css({'display': 'none'});
+  },
+  insertSearchResults(users, searchVal, bookings, rooms) {
+    $('.user-search-results').empty();
+    let sum = 0;
+    let searchResults = users.filter(u => {
+      return u.name.toLowerCase().includes(searchVal.toLowerCase());
+    });
+    if (searchResults.length !== 0) {
+      bookings.forEach(b => {
+        if (b.userID === searchResults[0].id) {
+          $('.user-search-results').append(
+            `<li>Room #${b.roomNum} on ${b.date}</li>
+            <button id="${b.id}-${b.date}" class="delete-booking-btn" type="button" name="button">DELETE</button>`
+          );
+          global.deleteBookBtn = $('.delete-booking-btn');
+          sum += b.findTotalRoomCost(rooms);
+        };
+      });
+      $('.user-result').prepend(
+        `<h3>${searchResults[0].name} ($${sum} spent)</h3>
+        <button id=${searchResults[0].id} class="book-for-user-btn" type="button" name="button">Book Room For ${searchResults[0].name}</button>`
+      );
+      global.bookForUserBtn = $('.book-for-user-btn');
+    } else {
+      $('.user-search-results').append(
+        `<p>Sorry. No results were found...</p>`
+      );
+    }
+    $('.user-info').css({'height': '100%'});
+  },
+  bookTheirRoom(userID) {
+    $('.book-their-room').css({'display': 'inline'});
+    $('.room-input-container').css({'display': 'inline'});
+    $('.room-input-container').append(
+      `<button id="${userID}" class="choose-date-room-btn book-form-btn selection-btn" type="button" name="button">Continue</button>`
+    )
+    global.chooseDateRoomBtn = $('.choose-date-room-btn');
   }
 }
 
