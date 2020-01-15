@@ -18,6 +18,25 @@
       <h2 id="rooms-open">Rooms Available Today: </h2>
       <h2 id="total-rev-today">Total Revenue Today: $</h2>
       <h2 id="pct-rooms">Rooms Occupied: %</h2>
+      <form class="user-search">
+        <label for="user-name-input"></label>
+        <input class="user-name-input login-input" autocomplete="off" placeholder="Enter Name"></input>
+        <button class="search-user-btn" type="button" name="button">Search</button>
+      </form>
+      <div class="user-result">
+      </div>
+      <div class="book-their-room">
+        <h2 class="form-direction">Choose a Date:</h2>
+        <label for="date-input"></label>
+        <input class="date-input" type="date" autocomplete="off" placeholder="MM/DD/YYYY"></input>
+        <h2 class="form-direction">Enter a Room#:</h2>
+        <label for="room-num-input"></label>
+        <input class="room-num-input" autocomplete="off" placeholder="Room#"></input>
+        <div class="room-input-container"></div>
+      </div>
+      <ul class="user-search-results">
+
+      </ul>
     </section>
   </body>
 </html>
