@@ -26,7 +26,7 @@ For this project, we built a hotel management tool for hotel customers and staff
 - jQuery for making the DOM easier to handle
 - Sass for getting fancy with your CSS
 
-## Datasets
+## API Datasets
 [Users](https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users)  
 [Rooms](https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms)  
 [Bookings](https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings)
